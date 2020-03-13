@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-profile-java-api
+  namespace: api-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-profile-java-api
+  template:
+    metadata:
+      labels:
+        app: user-profile-java-api
+    spec:
+      containers:
+      - name: user-profile-java-api
+        image: registryamd4608.azurecr.io/tripinsights/user-java:1.0
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: sqlserver
+          mountPath: /secrets
+          readOnly: true
+      volumes:
+      - name: sqlserver
+        flexVolume:
+          driver: "azure/kv"
+          secretRef:
+            name: kvcreds
+          options:
+            usepodidentity: "false"
+            keyvaultname: "vault200313"
+            keyvaultobjectnames: sql-server;sql-user;sql-password
+            keyvaultobjectaliases: SQL_SERVER;SQL_USER;SQL_PASSWORD
+            keyvaultobjecttypes: secret;secret;secret
+            resourcegroup: "teamResources"
+            subscriptionid: "4ec6b1b9-7c2b-4e51-9ccc-0d3f132a8fb4"
+            tenantid: "423cb5ae-47a2-444f-a224-f2722e3180f3"

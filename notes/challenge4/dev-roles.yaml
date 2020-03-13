@@ -1,0 +1,55 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: web-dev-view
+  namespace: web-dev
+subjects:
+- kind: User
+  name: apidev@OTAPRD1340ops.onmicrosoft.com
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: view
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: web-dev-edit
+  namespace: web-dev
+subjects:
+- kind: User
+  name: webdev@OTAPRD1340ops.onmicrosoft.com
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: edit
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: api-dev-view
+  namespace: api-dev
+subjects:
+- kind: User
+  name: webdev@OTAPRD1340ops.onmicrosoft.com
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: view
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: api-dev-edit
+  namespace: api-dev
+subjects:
+- kind: User
+  name: apidev@OTAPRD1340ops.onmicrosoft.com
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: edit
+  apiGroup: rbac.authorization.k8s.io
