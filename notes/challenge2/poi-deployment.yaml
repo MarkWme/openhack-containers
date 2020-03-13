@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poi-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poi-api
+  template:
+    metadata:
+      labels:
+        app: poi-api
+    spec:
+      containers:
+      - name: poi-api
+        image: registryamd4608.azurecr.io/tripinsights/poi:1.0
+        env:
+          - name: SQL_USER
+            value: "<sql user name>"
+          - name: SQL_PASSWORD
+            value: "<password>"
+          - name: SQL_SERVER
+            value: "<sql server>.database.windows.net"
+          - name: ASPNETCORE_ENVIRONMENT
+            value: "Development"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 8080

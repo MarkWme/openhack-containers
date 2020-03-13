@@ -1,0 +1,22 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: contoso-cluster-admins
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: hacker10aa@OTAPRD415ops.onmicrosoft.com
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: hacker3xpm@OTAPRD415ops.onmicrosoft.com
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: hacker4irt@OTAPRD415ops.onmicrosoft.com
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: hacker63r1@OTAPRD415ops.onmicrosoft.com
+
