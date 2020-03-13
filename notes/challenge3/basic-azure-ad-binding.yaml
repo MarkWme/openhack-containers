@@ -1,0 +1,28 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: openhack-cluster-admins
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: hacker1hq1@OTAPRD1340ops.onmicrosoft.com
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: hacker2tqh@OTAPRD1340ops.onmicrosoft.com
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: hacker3lp9@OTAPRD1340ops.onmicrosoft.com
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: hacker4mlq@OTAPRD1340ops.onmicrosoft.com
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: hacker5wfj@OTAPRD1340ops.onmicrosoft.com
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: hacker6yzm@OTAPRD1340ops.onmicrosoft.com
+
