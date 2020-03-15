@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tripviewer
+  namespace: web-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tripviewer
+  template:
+    metadata:
+      labels:
+        app: tripviewer
+        aadpodidbinding: "key-vault-pod-identity"
+    spec:
+      serviceAccountName: service-account-web
+      containers:
+      - name: tripviewer
+        image: registryamd4608.azurecr.io/tripinsights/tripviewer:1.0
+        env:
+          - name: TRIPS_API_ENDPOINT
+            value: "http://trips-service.api-dev.svc.cluster.local"
+          - name: USERPROFILE_API_ENDPOINT
+            value: "http://user-profile-js-service.api-dev.svc.cluster.local"
+          - name: ASPNETCORE_ENVIRONMENT
+            value: "Development"
+          - name: BING_MAPS_KEY
+            value: ""
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 80
