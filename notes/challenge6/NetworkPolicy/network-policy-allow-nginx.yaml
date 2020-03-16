@@ -5,6 +5,8 @@ metadata:
   namespace: api-dev
 spec:
   podSelector: {}
+  policyTypes:
+    - Ingress
   ingress:
   - from: 
     - namespaceSelector:
@@ -13,4 +15,21 @@ spec:
       podSelector:
         matchLabels: 
           app.kubernetes.io/name: ingress-nginx
-        
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-nginx-ns-policy
+  namespace: web-dev
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+  - from: 
+    - namespaceSelector:
+        matchLabels:
+          environment: ingress-nginx
+      podSelector:
+        matchLabels: 
+          app.kubernetes.io/name: ingress-nginx

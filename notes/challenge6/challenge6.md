@@ -67,6 +67,13 @@ kubectl label namespace/web-dev environment=web-dev
 
 * Connect to any pod and confirm you can access another pod. For example, connect to the tripviewer pod 
 
+
+I think the problem now is cannot egress from the pods to the SQL server, so queries are failing.
+Trying to open egress for all pods in that namespace
+Or, maybe add the SQL Vnet endpoint and then use internal IP to access?
+
+
+
  az identity create -g challenge6 -n secure-aks-id -o json
 {
   "clientId": "39d5a900-c68d-43c6-bf99-076917936f4d",
