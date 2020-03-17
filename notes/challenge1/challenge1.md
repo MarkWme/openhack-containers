@@ -1,4 +1,9 @@
-* Fork and clone the open-hack containers repo 
+# Challenge 1
+
+* Fork and clone the open-hack containers repository. You can fork the repository into your own GitHub repository by going to https://github.com/Azure-Samples/openhack-containers and then click the "Fork" icon at the top right of the page. Once that's done, download a local copy of the repository to work from
+```
+git clone https://github.com/<your repo name>/openhack-containers.git
+```
 * Build the docker containers for each of the app
 * Create the Docker network
     ```
