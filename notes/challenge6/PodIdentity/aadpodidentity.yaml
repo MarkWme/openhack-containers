@@ -1,8 +1,0 @@
-apiVersion: "aadpodidentity.k8s.io/v1"
-kind: AzureIdentity
-metadata:
-  name: secure-aks-id
-spec:
-  type: 0
-  ResourceID: /subscriptions/4ec6b1b9-7c2b-4e51-9ccc-0d3f132a8fb4/resourcegroups/challenge6/providers/Microsoft.ManagedIdentity/userAssignedIdentities/secure-aks-id
-  ClientID: 39d5a900-c68d-43c6-bf99-076917936f4d
