@@ -14,7 +14,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ARG COMPOSE_VERSION=1.24.0
 
 # Helm Version
-ARG HELM_VERSION=3.0.2
+ARG HELM_VERSION=3.3.1
 
 # This Dockerfile adds a non-root user with sudo access. Use the "remoteUser"
 # property in devcontainer.json to use it. On Linux, the container user's GID/UIDs
@@ -53,7 +53,7 @@ RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sour
     && apt-get update \
     && apt-get install -y kubectl
 
-# Install Helm (currently v3.0.2)
+# Install Helm (currently v3.3.1)
 RUN mkdir -p /tmp/downloads/helm \
     && curl -sL -o /tmp/downloads/helm.tar.gz https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
     && tar -C /tmp/downloads/helm -zxvf /tmp/downloads/helm.tar.gz \
