@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-profile-js-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-profile-js-api
+  template:
+    metadata:
+      labels:
+        app: user-profile-js-api
+    spec:
+      containers:
+      - name: user-profile-js-api
+        image: registryssn3831.azurecr.io/tripinsights/userprofile:1.0
+        env:
+          - name: SQL_USER
+            valueFrom:
+              configMapKeyRef:
+                name: tripinsights-env
+                key: SQL_USER
+          - name: SQL_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: tripinsights-env
+                key: SQL_PASSWORD
+          - name: SQL_SERVER
+            valueFrom:
+              configMapKeyRef:
+                name: tripinsights-env
+                key: SQL_SERVER
+          - name: OPENAPI_DOCS_URI
+            value: ""
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 80

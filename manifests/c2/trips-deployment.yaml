@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trips-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trips-api
+  template:
+    metadata:
+      labels:
+        app: trips-api
+    spec:
+      containers:
+      - name: trips-api
+        image: registryssn3831.azurecr.io/tripinsights/trips:1.0
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        envFrom:
+          - configMapRef:
+              name: tripinsights-env
+        ports:
+        - containerPort: 80

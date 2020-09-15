@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-profile-java-api
+  namespace: api-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-profile-java-api
+  template:
+    metadata:
+      labels:
+        app: user-profile-java-api
+    spec:
+      containers:
+      - name: user-profile-java-api
+        image: registryssn3831.azurecr.io/tripinsights/user-java:1.0
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: sqlserver
+          mountPath: /secrets
+          readOnly: true
+      volumes:
+      - name: sqlserver
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "azure-kvname"
+          nodePublishSecretRef:
+            name: secrets-store-creds

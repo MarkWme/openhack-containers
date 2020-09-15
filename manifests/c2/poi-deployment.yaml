@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poi-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poi-api
+  template:
+    metadata:
+      labels:
+        app: poi-api
+    spec:
+      containers:
+      - name: poi-api
+        image: registryssn3831.azurecr.io/tripinsights/poi:1.0
+        env:
+          - name: SQL_USER
+            valueFrom:
+              configMapKeyRef:
+                name: tripinsights-env
+                key: SQL_USER
+          - name: SQL_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: tripinsights-env
+                key: SQL_PASSWORD
+          - name: SQL_SERVER
+            valueFrom:
+              configMapKeyRef:
+                name: tripinsights-env
+                key: SQL_SERVER
+          - name: ASPNETCORE_ENVIRONMENT
+            value: "Development"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 8080

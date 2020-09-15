@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tripviewer
+  namespace: web-dev
 spec:
   replicas: 1
   selector:
@@ -14,12 +15,14 @@ spec:
     spec:
       containers:
       - name: tripviewer
-        image: registryuqk1141.azurecr.io/tripinsights/tripviewer:v1
+        image: registryssn3831.azurecr.io/tripinsights/tripviewer:1.0
         env:
           - name: TRIPS_API_ENDPOINT
             value: "http://trips-service.api-dev.svc.cluster.local"
           - name: USERPROFILE_API_ENDPOINT
             value: "http://user-profile-js-service.api-dev.svc.cluster.local"
+          - name: ASPNETCORE_ENVIRONMENT
+            value: "Development"
         resources:
           requests:
             cpu: 100m

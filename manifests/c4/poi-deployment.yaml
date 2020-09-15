@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poi-api
+  namespace: api-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poi-api
+  template:
+    metadata:
+      labels:
+        app: poi-api
+    spec:
+      containers:
+      - name: poi-api
+        image: registryssn3831.azurecr.io/tripinsights/poi:1.0
+        env:
+          - name: ASPNETCORE_ENVIRONMENT
+            value: "Development"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: sqlserver
+          mountPath: /secrets
+          readOnly: true
+      volumes:
+      - name: sqlserver
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "azure-kvname"
+          nodePublishSecretRef:
+            name: secrets-store-creds

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-profile-java-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-profile-java-api
+  template:
+    metadata:
+      labels:
+        app: user-profile-java-api
+    spec:
+      containers:
+      - name: user-profile-java-api
+        image: registryssn3831.azurecr.io/tripinsights/user-java:1.0
+        env:
+          - name: SQL_USER
+            valueFrom:
+              configMapKeyRef:
+                name: tripinsights-env
+                key: SQL_USER
+          - name: SQL_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: tripinsights-env
+                key: SQL_PASSWORD
+          - name: SQL_SERVER
+            valueFrom:
+              configMapKeyRef:
+                name: tripinsights-env
+                key: SQL_SERVER
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        ports:
+        - containerPort: 80
